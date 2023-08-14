@@ -9,7 +9,7 @@ int main(void)
 	int i = 0, m = 0;
 	size_t len = 0;
 	ssize_t n;
-	char *command = NULL,  **argv;
+	char *command = NULL,  **argv, *new;
 	pid_t pd;
 
 	argv = malloc(sizeof(char *));
@@ -27,6 +27,9 @@ int main(void)
 		if (command[(i - 1)] == '\n')
 			command[(i - 1)] = '\0';
 		argv = tokenize(command);
+		new = check_path(argv[0]);
+		if (new == NULL)
+			continue;
 		pd = fork();
 		if (pd < 0)
 		{
@@ -34,7 +37,7 @@ int main(void)
 		}
 		else if (pd == 0)
 		{
-			m = execve(argv[0], argv, environ);
+			m = execve(new, argv, environ);
 			if (m == -1)
 				perror("./shell: No such file or directory");
 			exit(EXIT_FAILURE);

@@ -1,6 +1,6 @@
 #include "shell.h"
 /**
- * chech_path - checks for a path
+ * check_path - checks for a path
  * @p: pionter to path
  *
  * Return: pointer to path
@@ -22,10 +22,12 @@ char *check_path(char *p)
 		dp = opendir(pt);
 		if (dp == NULL)
 			return (NULL);
-		while ( (ent = readdir(dp)))
+		while ((ent = readdir(dp)))
 		{
-			if ((ent->d_name) == p)
-				return (combine(P));
+			if (strcmp((ent->d_name), p) == 0)
+			{
+				return (combine(p));
+			}
 		}
 		closedir(dp);
 	}
@@ -43,8 +45,7 @@ char *combine(char *s)
 	char *new_path;
 
 	new_path = malloc((strlen(s) + 1 + strlen(p)));
-	
 	strcpy(new_path, p);
 	strcat(new_path, s);
 	return (new_path);
-}	
+}
