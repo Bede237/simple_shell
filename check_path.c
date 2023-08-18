@@ -24,7 +24,7 @@ char *check_path(char *p)
 			return (NULL);
 		while ((ent = readdir(dp)))
 		{
-			if (strcmp((ent->d_name), p) == 0)
+			if (str_cmp((ent->d_name), p) == 0)
 			{
 				return (combine(p));
 			}
@@ -44,8 +44,8 @@ char *combine(char *s)
 	char *p = "/bin/";
 	char *new_path;
 
-	new_path = malloc((strlen(s) + 1 + strlen(p)));
-	strcpy(new_path, p);
-	strcat(new_path, s);
+	new_path = malloc((str_len(s) + 1 + str_len(p)));
+	str_cpy(new_path, p);
+	str_cat(new_path, s);
 	return (new_path);
 }

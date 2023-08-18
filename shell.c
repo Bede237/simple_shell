@@ -4,32 +4,38 @@
  *
  * Return: 0 (success)
  */
-int main(void)
+int main(int argc, char **argv)
 {
-	int i = 0, m = 0;
+	int i = 0, m = 0, count = 0;
 	size_t len = 0;
 	ssize_t n;
-	char *command = NULL,  **argv, *new;
+	char *command = NULL,  **args, *new;
 	pid_t pd;
 
-	argv = malloc(sizeof(char *));
+	if (argc < 1)
+		argv = NULL;
 	while (1)
 	{
-		if (isatty(STDOUT_FILENO))
+		if (isatty(STDIN_FILENO))
 			printf("#cisfun$ ");
 		n = getline(&command, &len, stdin);
 		if (n == -1)
 			break;
-		while (command[i] != '\0')
-		{
-			i = i + 1;
-		}
+		count = count + 1;
+		i = str_len(command);
 		if (command[(i - 1)] == '\n')
 			command[(i - 1)] = '\0';
-		argv = tokenize(command);
-		new = check_path(argv[0]);
+		if (str_cmp(command, "exit") == 0)
+			exit(EXIT_SUCCESS);
+		args = tokenize(command);
+		new = check_path(args[0]);
 		if (new == NULL)
+		{
+			print_error(argv[0], args[0], count);
+			free(argv);
+			free(args);
 			continue;
+		}
 		pd = fork();
 		if (pd < 0)
 		{
@@ -37,9 +43,9 @@ int main(void)
 		}
 		else if (pd == 0)
 		{
-			m = execve(new, argv, environ);
+			m = execve(new, args, environ);
 			if (m == -1)
-				perror("./shell: No such file or directory");
+				print_error(argv[0], args[0], count);
 			exit(EXIT_FAILURE);
 		}
 		else
@@ -47,6 +53,8 @@ int main(void)
 			wait(NULL);
 		}
 	}
+	free(args);
+	free(new);
 	free(command);
 	return (0);
 }
@@ -58,12 +66,19 @@ int main(void)
  */
 char **tokenize(char *p)
 {
-	char **argv, *token;
+	char **argg, *token, *bede, *s;
 	int m = 0;
-	int n = 0;
-
-	argv = malloc(sizeof(char *));
-
+	int n = 0, i = 0;
+	
+	s = malloc(sizeof(char) * (str_len(p) + 1));
+	str_cpy(s, p);
+	bede = strtok(s, " ");
+	while(bede != NULL)
+	{
+		i = i + 1;
+		bede = strtok(NULL, " ");
+	}	
+	argg = malloc(sizeof(char*) * i);
 	token = strtok(p, " ");
 
 	while (token != NULL)
@@ -75,11 +90,12 @@ char **tokenize(char *p)
 			n++;
 		}
 		n = 0;
-		argv[m] = malloc(sizeof(char *) * strlen(token));
-		strcpy(argv[m], token);
+		argg[m] = malloc(sizeof(char) * ( strlen(token) + 1));
+		str_cpy(argg[m], token);
 		m++;
 		token = strtok(NULL, " ");
 	}
-	argv[m] = NULL;
-	return (argv);
+	free(s);
+	argg[m] = NULL;
+	return (argg);
 }
