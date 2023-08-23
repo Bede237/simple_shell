@@ -34,6 +34,7 @@ int main(int argc, char **argv)
 			print_error(argv[0], args[0], count);
 			free(argv);
 			free(args);
+			free(new);
 			continue;
 		}
 		pd = fork();
@@ -95,7 +96,7 @@ char **tokenize(char *p)
 		argg[m] = malloc(sizeof(char) * ( strlen(token) + 1));
 		str_cpy(argg[m], token);
 		m++;
-		token = _strtok(NULL, " ");
+		token = strtok(NULL, " ");
 	}
 	free(s);
 	argg[m] = NULL;
