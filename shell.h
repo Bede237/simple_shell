@@ -20,5 +20,6 @@ ssize_t get_line(char **string, size_t *n, FILE *stream);
 int put_s(char *p);
 int put_char(char s);
 void print_error(char *string, char *p, int n);
+char *_strtok(char *s, char *d);
 
 #endif

@@ -77,9 +77,11 @@ char **tokenize(char *p)
 	{
 		i = i + 1;
 		bede = strtok(NULL, " ");
-	}	
+	}
 	argg = malloc(sizeof(char*) * i);
 	token = strtok(p, " ");
+	if (token == NULL)
+		return (NULL);
 
 	while (token != NULL)
 	{
@@ -93,7 +95,7 @@ char **tokenize(char *p)
 		argg[m] = malloc(sizeof(char) * ( strlen(token) + 1));
 		str_cpy(argg[m], token);
 		m++;
-		token = strtok(NULL, " ");
+		token = _strtok(NULL, " ");
 	}
 	free(s);
 	argg[m] = NULL;
