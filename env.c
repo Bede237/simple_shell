@@ -1,6 +1,6 @@
 #include "shell.h"
 /**
- * print_env - prints current env
+ * print_envp - prints current env
  * @command: command
  * @envp: envp
  * @argv: commandline args

@@ -1,7 +1,7 @@
 #include "shell.h"
 /**
  * _getline - getline function
- * @lineptr: line pointer
+ * @string: line pointer
  * @n: size of lineptr
  * @fd: File stream to read from
  * Return: size read or -1 (Fail)

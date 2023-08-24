@@ -1,6 +1,6 @@
 #include "shell.h"
 /**
- * _exit - exits shell
+ * exit_ - exits shell
  * @argv: comandline argument
  * @command: command
  * @count: count

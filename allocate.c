@@ -1,7 +1,7 @@
 #include "shell.h"
 /**
- * _realloc - reallocates memory
- * @ptr: pointer
+ * reallocate - reallocates memory
+ * @p: pointer
  * @new: new size of pointer
  * Return: new pointer
  */
