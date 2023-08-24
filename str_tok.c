@@ -10,7 +10,7 @@ char *_strtok(char *s, char *d)
 {
 	static char *last_token;
 	static char *token;
-	int i = 0;
+	int i = 0, j = 0;
 
 	if (s != NULL)
 	{
@@ -23,10 +23,15 @@ char *_strtok(char *s, char *d)
 	token = last_token;
 	while (last_token[i] != '\0')
 	{
-		if (last_token[i] == d[0])
+		while (d[j] != '\0')
 		{
-			last_token[i] = '\0';
-			return (token);
+			if (last_token[i] == d[j])
+			{
+				last_token[i] = '\0';
+				i++;
+				return (token);
+			}
+			j++;
 		}
 		i++;
 	}
