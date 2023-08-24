@@ -97,7 +97,7 @@ char **tokenize(char *p)
 	char **argg, *token, *bede, *s;
 	int m = 0;
 	int n = 0, i = 0;
-	
+
 	s = malloc(sizeof(char) * (str_len(p) + 1));
 	str_cpy(s, p);
 	bede = strtok(s, " ");
@@ -106,7 +106,7 @@ char **tokenize(char *p)
 		i = i + 1;
 		bede = strtok(NULL, " ");
 	}
-	argg = malloc(sizeof(char*) * i);
+	argg = malloc(sizeof(char *) * i);
 	token = strtok(p, " ");
 	if (token == NULL)
 		return (NULL);
@@ -120,7 +120,7 @@ char **tokenize(char *p)
 			n++;
 		}
 		n = 0;
-		argg[m] = malloc(sizeof(char) * ( strlen(token) + 1));
+		argg[m] = malloc(sizeof(char) * (strlen(token) + 1));
 		str_cpy(argg[m], token);
 		m++;
 		token = strtok(NULL, " ");
@@ -136,7 +136,7 @@ char **tokenize(char *p)
  * @argv: commandline args
  * @envp: envi varaibles
  *
- * Rwturn: 0(success)
+ * Return: 0(success)
  */
 int handle_inbuilt(char **args, int count, char **argv, char **envp)
 {
