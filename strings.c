@@ -21,13 +21,13 @@ int str_len(char *string)
  * str_cpy - copies string
  * @string1: destination
  * @string2: string to be copied
- * 
+ *
  * Return: pointer to string
  */
 char *str_cpy(char *string1, char *string2)
 {
 	int i = 0;
-	
+
 	while (string2[i] != '\0')
 	{
 		string1[i] = string2[i];

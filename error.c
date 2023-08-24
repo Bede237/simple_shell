@@ -24,8 +24,8 @@ void print_error(char *s, char *p, int n)
 /**
  * put_s - write a string to screen
  * @s: ppointer to string
- * 
- * Returns: count of string
+ *
+ * Return: count of string
  */
 int put_s(char *s)
 {
@@ -46,5 +46,5 @@ int put_s(char *s)
  */
 int put_char(char s)
 {
-	return(write(1, &s, 1));
+	return (write(1, &s, 1));
 }

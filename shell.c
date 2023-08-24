@@ -82,7 +82,6 @@ int handle_commands(char **args, int count, char **argv, char **envp)
 	{
 		wait(NULL);
 	}
-
 	free(args);
 	free(new);
 	return (0);
@@ -102,7 +101,7 @@ char **tokenize(char *p)
 	s = malloc(sizeof(char) * (str_len(p) + 1));
 	str_cpy(s, p);
 	bede = strtok(s, " ");
-	while(bede != NULL)
+	while (bede != NULL)
 	{
 		i = i + 1;
 		bede = strtok(NULL, " ");
