@@ -106,7 +106,7 @@ char **tokenize(char *p)
 		i = i + 1;
 		bede = strtok(NULL, " ");
 	}
-	argg = malloc(sizeof(char *) * i);
+	argg = malloc(sizeof(char *) * (i + 1));
 	token = strtok(p, " ");
 	if (token == NULL)
 		return (NULL);
@@ -127,6 +127,8 @@ char **tokenize(char *p)
 	}
 	free(s);
 	argg[m] = NULL;
+	free(bede);
+	free(token);
 	return (argg);
 }
 /**
