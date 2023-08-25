@@ -7,11 +7,13 @@
  */
 char *check_path(char *p)
 {
-	char *pt = "/bin";
+	char *pt = "/usr/bin";
 	int n = 0;
 	struct dirent *ent;
 	DIR *dp;
-
+	
+	if (p == NULL)
+		return (NULL);
 	n = access(p, F_OK);
 	if (n == 0)
 	{
@@ -24,7 +26,7 @@ char *check_path(char *p)
 			return (NULL);
 		while ((ent = readdir(dp)))
 		{
-			if (str_cmp((ent->d_name), p) == 0)
+			if (str_cmp(ent->d_name, p) == 0)
 			{
 				closedir(dp);
 				return (combine(p));

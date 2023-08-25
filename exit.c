@@ -14,7 +14,6 @@ int exit_(char **argv, char **command, int count)
 
 	if (argv[1] == NULL || str_cmp(argv[1], "0"))
 	{
-		free(argv);
 		free_args(command);
 		exit(0);
 	}
@@ -35,8 +34,8 @@ int exit_(char **argv, char **command, int count)
 			return (0);
 		}
 	}
-	free(argv);
 	free_args(command);
+	free(argv);
 	exit(status);
 }
 /**

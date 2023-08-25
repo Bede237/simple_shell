@@ -9,7 +9,9 @@ int str_len(char *string)
 {
 	int i = 0;
 	int count = 0;
-
+	
+	if (string == NULL)
+		return (0);
 	while (string[i] != '\0')
 	{
 		count = count + 1;
@@ -68,19 +70,17 @@ char *str_cat(char *string1, char *string2)
  *
  * Return: 0(strings match)
  */
-int str_cmp(char *s, char *p)
+int str_cmp(char *s1, char *s2)
 {
-	int i = 0, j = 0, n;
+	int i = 0;
 
-	j = str_len(s);
-	i = str_len(p);
-
-	if (j != i)
-		return (-1);
-	for (n = 0; n == j; n++)
+	while (s1[i] != '\0')
 	{
-		if (s[n] != p[n])
+		if (s1[i] != s2[i])
 			return (-1);
+		i++;
 	}
+	if (s2[i] != '\0')
+		return (-1);
 	return (0);
 }

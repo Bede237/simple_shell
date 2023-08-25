@@ -27,12 +27,13 @@ int main(int argc, char **argv, char **envp)
 		i = str_len(command);
 		if (command[(i - 1)] == '\n')
 			command[(i - 1)] = '\0';
-		if (str_cmp(command, "exit") == 0)
-			exit(EXIT_SUCCESS);
 		args = tokenize(command);
 		m = handle_commands(args, count, argv, envp);
 		if (m == -1)
+		{
+			free_args(args);
 			continue;
+		}
 	}
 	return (0);
 }
@@ -47,21 +48,21 @@ int main(int argc, char **argv, char **envp)
  */
 int handle_commands(char **args, int count, char **argv, char **envp)
 {
-	int m = 0;
+	char *new;
 	pid_t pd;
 
+	if (args[0] == NULL)
+		return (-1);
 	if (handle_inbuilt(args,  count, argv, envp))
 	{
 		free_args(args);
-		free(argv);
 		return (0);
 	}
-	args[0] = check_path(args[0]);
-	if (args[0] == NULL)
+	new = check_path(args[0]);
+	if (new == NULL)
 	{
 		print_error(argv[0], args[0], count);
-		free(argv);
-		free_args(args);
+		free(new);
 		return (-1);
 	}
 	pd = fork();
@@ -71,15 +72,18 @@ int handle_commands(char **args, int count, char **argv, char **envp)
 	}
 	else if (pd == 0)
 	{
-		m = execve(args[0], args, environ);
-		if (m == -1)
-			print_error(argv[0], args[0], count);
-		exit(EXIT_FAILURE);
+		execve(new, args, environ);
 	}
 	else
 	{
 		wait(NULL);
 	}
+	if (str_cmp(new, args[0]) == 0)
+	{
+		free_args(args);
+		return (0);
+	}
+	free(new);
 	free_args(args);
 	return (0);
 }
@@ -123,8 +127,6 @@ char **tokenize(char *p)
 	}
 	free(pt);
 	argg[m] = NULL;
-	free(bede);
-	free(token);
 	return (argg);
 }
 /**
@@ -158,7 +160,7 @@ void free_args(char **args)
 {
 	int i = 0;
 
-	while (args[i] != NULL)
+	while (args[i])
 	{
 		free(args[i]);
 
