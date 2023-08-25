@@ -10,7 +10,6 @@ char *_strtok(char *s, char *d)
 {
 	static char *last_token;
 	static char *token;
-	int i = 0, j = 0;
 
 	if (s != NULL)
 	{
@@ -21,19 +20,19 @@ char *_strtok(char *s, char *d)
 		return (NULL);
 	}
 	token = last_token;
-	while (last_token[i] != '\0')
+	while (*last_token != '\0')
 	{
-		while (d[j] != '\0')
+		while (*d != '\0')
 		{
-			if (last_token[i] == d[j])
+			if (*last_token == *d)
 			{
-				last_token[i] = '\0';
-				i++;
+				*last_token = '\0';
+				last_token++;
 				return (token);
 			}
-			j++;
+			d++;
 		}
-		i++;
+		last_token++;
 	}
 	last_token = NULL;
 	if (str_cmp(token, ""))

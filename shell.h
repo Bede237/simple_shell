@@ -16,6 +16,8 @@
 
 extern char **environ;
 void free_args(char **args);
+void _put(char *str);
+int _putchar(char c);
 char **tokenize(char *p);
 char *combine(char *s);
 char *check_path(char *p);

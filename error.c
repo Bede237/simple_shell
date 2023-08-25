@@ -46,5 +46,5 @@ int put_s(char *s)
  */
 int put_char(char s)
 {
-	return (write(1, &s, 1));
+	return (write(2, &s, 1));
 }

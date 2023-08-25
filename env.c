@@ -19,9 +19,38 @@ int print_envp(char **command, char **envp, char **argv)
 	}
 	while (environ[i])
 	{
-		put_s(environ[i]);
-		put_char('\n');
+		_put(environ[i]);
+		_putchar('\n');
 		i++;
 	}
 	return (0);
+}
+/**
+ * _puts - prints the text entered to the console
+ * @str: text to be printed
+ *
+ * Return: void
+*/
+void _put(char *str)
+{
+	int i = 0;
+
+	if (!str)
+		return;
+	while (str[i] != '\0')
+	{
+		_putchar(str[i]);
+		i++;
+	}
+}
+
+/**
+ * _putchar - prints a character
+ * @c: character to be printed
+ *
+ * Return: void
+*/
+int _putchar(char c)
+{
+	return (write(1, &c, 1));
 }
