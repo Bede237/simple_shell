@@ -26,6 +26,7 @@ char *check_path(char *p)
 		{
 			if (str_cmp((ent->d_name), p) == 0)
 			{
+				closedir(dp);
 				return (combine(p));
 			}
 		}

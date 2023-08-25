@@ -53,7 +53,7 @@ int handle_commands(char **args, int count, char **argv, char **envp)
 
 	if (handle_inbuilt(args,  count, argv, envp))
 	{
-		free(args);
+		free_args(args);
 		free(argv);
 		return (0);
 	}
@@ -62,7 +62,7 @@ int handle_commands(char **args, int count, char **argv, char **envp)
 	{
 		print_error(argv[0], args[0], count);
 		free(argv);
-		free(args);
+		free_args(args);
 		free(new);
 		return (-1);
 	}
@@ -82,7 +82,7 @@ int handle_commands(char **args, int count, char **argv, char **envp)
 	{
 		wait(NULL);
 	}
-	free(args);
+	free_args(args);
 	free(new);
 	return (0);
 }
@@ -94,11 +94,12 @@ int handle_commands(char **args, int count, char **argv, char **envp)
  */
 char **tokenize(char *p)
 {
-	char **argg, *token, *bede, *s;
+	char **argg, *token, *bede, *s, *pt;
 	int m = 0;
 	int n = 0, i = 0;
 
 	s = malloc(sizeof(char) * (str_len(p) + 1));
+	pt = s;
 	str_cpy(s, p);
 	bede = strtok(s, " ");
 	while (bede != NULL)
@@ -108,8 +109,6 @@ char **tokenize(char *p)
 	}
 	argg = malloc(sizeof(char *) * (i + 1));
 	token = strtok(p, " ");
-	if (token == NULL)
-		return (NULL);
 
 	while (token != NULL)
 	{
@@ -125,7 +124,7 @@ char **tokenize(char *p)
 		m++;
 		token = strtok(NULL, " ");
 	}
-	free(s);
+	free(pt);
 	argg[m] = NULL;
 	free(bede);
 	free(token);
@@ -153,4 +152,21 @@ int handle_inbuilt(char **args, int count, char **argv, char **envp)
 		return (1);
 	}
 	return (0);
+}
+/**
+ * free_args - frees pointers
+ * @args: pointer
+ */
+void free_args(char **args)
+{
+	int i = 0;
+
+	while (args[i] != NULL)
+	{
+		free(args[i]);
+
+		i++;
+	}
+	free(args[i]);
+	free(args);
 }

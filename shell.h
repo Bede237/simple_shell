@@ -15,6 +15,7 @@
 #define BUF_FLUSH -1
 
 extern char **environ;
+void free_args(char **args);
 char **tokenize(char *p);
 char *combine(char *s);
 char *check_path(char *p);
