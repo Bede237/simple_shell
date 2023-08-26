@@ -19,7 +19,7 @@ int main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		if (isatty(STDIN_FILENO))
-			printf("#cisfun$ ");
+			_put("#cisfun$ ");
 		n = getline(&command, &len, stdin);
 		if (n == -1)
 			break;
@@ -28,13 +28,14 @@ int main(int argc, char **argv, char **envp)
 		if (command[(i - 1)] == '\n')
 			command[(i - 1)] = '\0';
 		args = tokenize(command);
-		m = handle_commands(args, count, argv, envp);
+		m = handle_commands(args, count, argv, envp, command);
 		if (m == -1)
 		{
 			free_args(args);
 			continue;
 		}
 	}
+	free(command);
 	return (0);
 }
 /**
@@ -46,14 +47,14 @@ int main(int argc, char **argv, char **envp)
  *
  * Return: -1(failure)
  */
-int handle_commands(char **args, int count, char **argv, char **envp)
+int handle_commands(char **args, int count, char **argv, char **envp, char *c)
 {
 	char *new;
 	pid_t pd;
 
 	if (args[0] == NULL)
 		return (-1);
-	if (handle_inbuilt(args,  count, argv, envp))
+	if (handle_inbuilt(args,  count, argv, envp, c))
 	{
 		free_args(args);
 		return (0);
@@ -138,10 +139,11 @@ char **tokenize(char *p)
  *
  * Return: 0(success)
  */
-int handle_inbuilt(char **args, int count, char **argv, char **envp)
+int handle_inbuilt(char **args, int count, char **argv, char **envp, char *c)
 {
 	if (str_cmp(args[0], "exit") == 0)
 	{
+		free(c);
 		exit_(argv, args, count);
 		return (1);
 	}
