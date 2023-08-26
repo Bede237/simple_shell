@@ -9,7 +9,7 @@ int str_len(char *string)
 {
 	int i = 0;
 	int count = 0;
-	
+
 	if (string == NULL)
 		return (0);
 	while (string[i] != '\0')
@@ -65,8 +65,8 @@ char *str_cat(char *string1, char *string2)
 }
 /**
  * str_cmp - compares two strings
- * @s: string 1
- * @p: string 2
+ * @s1: string 1
+ * @s2: string 2
  *
  * Return: 0(strings match)
  */

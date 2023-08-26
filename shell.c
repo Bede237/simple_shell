@@ -44,6 +44,7 @@ int main(int argc, char **argv, char **envp)
  * @count: count
  * @argv: commandline args
  * @envp: envi variables
+ * @c: command
  *
  * Return: -1(failure)
  */
@@ -136,6 +137,7 @@ char **tokenize(char *p)
  * @count: count
  * @argv: commandline args
  * @envp: envi varaibles
+ * @c: command
  *
  * Return: 0(success)
  */

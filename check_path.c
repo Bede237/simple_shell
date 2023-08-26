@@ -11,7 +11,7 @@ char *check_path(char *p)
 	int n = 0;
 	struct dirent *ent;
 	DIR *dp;
-	
+
 	if (p == NULL)
 		return (NULL);
 	n = access(p, F_OK);

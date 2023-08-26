@@ -26,7 +26,7 @@ int print_envp(char **command, char **envp, char **argv)
 	return (0);
 }
 /**
- * _puts - prints the text entered to the console
+ * _put - prints the text entered to the console
  * @str: text to be printed
  *
  * Return: void
